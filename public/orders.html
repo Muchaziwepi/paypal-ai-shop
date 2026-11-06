@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Orders - Glow & Care</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; color: #17242b; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: .5rem; border-bottom: 1px solid #dde3e0; vertical-align: top; }
+  </style>
+</head>
+<body>
+  <h1>Orders</h1>
+  <p id="msg"></p>
+  <table id="table" hidden>
+    <thead><tr><th>Date</th><th>PayPal order</th><th>Items</th><th>Total</th><th>Buyer</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <script>
+    (async () => {
+      const key = prompt('Admin key (ADMIN_KEY in .env):');
+      const msg = document.getElementById('msg');
+      const res = await fetch('/api/orders?key=' + encodeURIComponent(key || ''));
+      const data = await res.json();
+      if (!res.ok) { msg.textContent = data.message; return; }
+      if (data.length === 0) { msg.textContent = 'No orders yet.'; return; }
+      const body = document.querySelector('tbody');
+      data.forEach((o) => {
+        const tr = document.createElement('tr');
+        const cells = [
+          new Date(o.createdAt).toLocaleString(),
+          o.paypalOrderId,
+          o.items.map((i) => i.name + ' x' + i.qty).join(', '),
+          '$' + Number(o.total).toFixed(2),
+          o.payerEmail || '',
+        ];
+        cells.forEach((text) => { const td = document.createElement('td'); td.textContent = text; tr.appendChild(td); });
+        body.appendChild(tr);
+      });
+      document.getElementById('table').hidden = false;
+    })();
+  </script>
+</body>
+</html>

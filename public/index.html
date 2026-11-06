@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>Glow & Care — Personal Care & Beauty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar"><a class="wordmark" href="/">GLOW <span>&</span> CARE</a><span class="top-note">Everyday essentials, thoughtfully chosen</span></nav>
+    <div class="hero-copy">
+      <p class="eyebrow">PERSONAL CARE · BEAUTY · EVERYDAY WELLNESS</p>
+      <h1>Your daily care,<br><em>made simple.</em></h1>
+      <p class="lead">Shop trusted skincare, haircare, cosmetics, sun protection and hygiene essentials.</p>
+      <form id="assistant" class="ask">
+        <label for="ask-input" class="sr">Ask the beauty shopping assistant</label>
+        <input id="ask-input" type="text" maxlength="300" autocomplete="off"
+          placeholder="Try: skincare essentials under $30" />
+        <button type="submit" id="ask-btn">Ask the assistant <span aria-hidden="true">↗</span></button>
+      </form>
+      <p id="assistant-reply" class="reply" role="status"></p>
+    </div>
+    <div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
+  </header>
+
+  <main class="layout">
+    <section class="shop" aria-labelledby="shop-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">THE BEAUTY EDIT</p><h2 id="shop-title">Shop the shelf</h2></div>
+        <span id="result-count" class="result-count">31 products</span>
+      </div>
+      <div class="shop-tools">
+        <div id="category-filters" class="filters" aria-label="Filter products by category"></div>
+        <label class="search-wrap"><span aria-hidden="true">⌕</span><input id="product-search" type="search" placeholder="Search products..." aria-label="Search products"></label>
+      </div>
+      <div id="products" class="grid"></div>
+      <p class="catalog-note">Prices are displayed in USD. Retailer prices can change and may vary by location, promotions and product size. Product images link to brand or retailer imagery where available; some listings use a clean catalog-style placeholder.</p>
+    </section>
+
+    <aside class="cart" aria-labelledby="cart-title">
+      <div class="cart-heading"><div><p class="eyebrow">YOUR PICKS</p><h2 id="cart-title">Shopping bag</h2></div><span class="bag-icon">✳</span></div>
+      <div id="cart-items"></div>
+      <p class="total"><span>Subtotal</span><strong id="total">$0.00</strong></p>
+      <paypal-button id="paypal-button" type="pay" hidden></paypal-button>
+      <p id="status" class="status" role="status"></p>
+      <p class="note">Demo checkout: payments run in the PayPal sandbox. No real money moves.</p>
+    </aside>
+  </main>
+  <footer><span>GLOW & CARE</span><span>Care for every day.</span></footer>
+
+  <script src="app.js"></script>
+  <script async src="https://www.sandbox.paypal.com/web-sdk/v6/core" onload="onPayPalWebSdkLoaded()"></script>
+</body>
+</html>
